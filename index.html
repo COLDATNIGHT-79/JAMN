@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#f9f9f9">
+    <title>JAMN</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' font-family='Courier New, monospace'>T</text></svg>">
+    <style>
+        :root {
+            --bg: #f9f9f9;
+            --text: #111111;
+            --btn-text: #888888;
+            --btn-bg: transparent;
+            --btn-hover: #e0e0e0;
+            --highlight: #ffcc00;
+            --highlight-text: #000000;
+            --modal-bg: #ffffff;
+            --modal-border: #dddddd;
+            --font-main: 'Courier New', Courier, monospace;
+        }
+
+        body[data-theme="grey-black"] {
+            --bg: #d9d9d9;
+            --text: #1a1a1a;
+            --btn-text: #555555;
+            --btn-bg: transparent;
+            --btn-hover: #cccccc;
+            --highlight: #999999;
+            --highlight-text: #ffffff;
+            --modal-bg: #e6e6e6;
+            --modal-border: #bbbbbb;
+        }
+
+        body[data-theme="orange-black"] {
+            --bg: #0a0a0a;
+            --text: #ff8c00;
+            --btn-text: #cc5500;
+            --btn-bg: transparent;
+            --btn-hover: #222222;
+            --highlight: #ff8c00;
+            --highlight-text: #0a0a0a;
+            --modal-bg: #111111;
+            --modal-border: #331a00;
+        }
+
+        body[data-theme="peach-white"] {
+            --bg: #ffb4a2;
+            --text: #ffffff;
+            --btn-text: #ffffff;
+            --btn-bg: transparent;
+            --btn-hover: #e5989b;
+            --highlight: #ffffff;
+            --highlight-text: #ffb4a2;
+            --modal-bg: #ffb4a2;
+            --modal-border: #ffffff;
+        }
+
+        body[data-theme="steam"] {
+            --bg: #171a21;
+            --text: #c7d5e0;
+            --btn-text: #66c0f4;
+            --btn-bg: transparent;
+            --btn-hover: #2a475e;
+            --highlight: #66c0f4;
+            --highlight-text: #171a21;
+            --modal-bg: #1b2838;
+            --modal-border: #2a475e;
+        }
+
+        body[data-theme="inverted-default"] {
+            --bg: #111111;
+            --text: #f9f9f9;
+            --btn-text: #888888;
+            --btn-bg: transparent;
+            --btn-hover: #333333;
+            --highlight: #f9f9f9;
+            --highlight-text: #111111;
+            --modal-bg: #1e1e1e;
+            --modal-border: #444444;
+        }
+
+        body[data-theme="inverted-peach"] {
+            --bg: #ffffff;
+            --text: #e88d7d;
+            --btn-text: #e88d7d;
+            --btn-bg: transparent;
+            --btn-hover: #f5f5f5;
+            --highlight: #e88d7d;
+            --highlight-text: #ffffff;
+            --modal-bg: #ffffff;
+            --modal-border: #e88d7d;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: var(--font-main);
+            transition: background-color 0.6s cubic-bezier(0.25, 1, 0.5, 1), color 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            overflow: hidden;
+        }
+
+        body.inverted-state {
+            background-color: var(--text);
+            color: var(--bg);
+        }
+
+        body.inverted-state #toolbar {
+            background-color: var(--text);
+            border-bottom-color: var(--btn-hover);
+        }
+
+        body.inverted-state .modal {
+            background-color: var(--text);
+            border-color: var(--btn-hover);
+            color: var(--bg);
+            box-shadow: 0 15px 45px rgba(255, 255, 255, 0.05);
+        }
+
+        body.inverted-state .tool-btn {
+            color: var(--bg);
+        }
+
+        body.inverted-state .tool-btn:hover,
+        body.inverted-state .tool-btn:active {
+            background-color: var(--bg);
+            color: var(--text);
+        }
+
+        body.inverted-state .kbd {
+            background-color: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--btn-hover);
+        }
+
+        body.inverted-state .divider {
+            background-color: var(--btn-hover);
+        }
+
+        body.inverted-state .modal h3 {
+            border-bottom-color: var(--btn-hover);
+        }
+
+        mark {
+            background-color: var(--highlight);
+            color: var(--highlight-text);
+            border-radius: 3px;
+            padding: 0 2px;
+        }
+
+        ::selection {
+            background-color: var(--highlight);
+            color: var(--highlight-text);
+        }
+
+        body.inverted-state mark {
+            background-color: var(--bg);
+            color: var(--text);
+        }
+
+        body.inverted-state ::selection {
+            background-color: var(--bg);
+            color: var(--text);
+        }
+
+        #fixed-controls {
+            position: fixed;
+            top: 10px;
+            right: 15px;
+            z-index: 100;
+            display: flex;
+            gap: 8px;
+        }
+
+        #toolbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: var(--bg);
+            border-bottom: 1px dashed var(--modal-border);
+            display: flex;
+            align-items: center;
+            padding: 10px 170px 10px 15px;
+            gap: 8px;
+            z-index: 10;
+            overflow-x: auto;
+            white-space: nowrap;
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.6s, border-color 0.6s;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        #toolbar.hidden {
+            transform: translateY(-100%);
+        }
+
+        #toolbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tool-btn {
+            background: var(--btn-bg);
+            color: var(--btn-text);
+            border: 1px solid transparent;
+            padding: 6px 10px;
+            font-size: 13px;
+            font-family: inherit;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            white-space: nowrap;
+        }
+
+        .tool-btn:hover,
+        .tool-btn:active {
+            background: var(--btn-hover);
+            color: var(--text);
+            border-color: var(--modal-border);
+            transform: translateY(-1px);
+        }
+
+        .divider {
+            width: 1px;
+            height: 18px;
+            background: var(--modal-border);
+            margin: 0 4px;
+            flex-shrink: 0;
+        }
+
+        #editor {
+            width: 100%;
+            height: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 20px 40px 20px;
+            font-size: 18px;
+            line-height: 1.6;
+            outline: none;
+            overflow-y: auto;
+        }
+
+        #editor:empty:before {
+            content: "Start typing... (Win+Shift+H for shortcuts)";
+            color: var(--btn-text);
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        #modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 99;
+            backdrop-filter: blur(3px);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.5s;
+        }
+
+        #modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -45%) scale(0.95);
+            background: var(--modal-bg);
+            border: 1px solid var(--modal-border);
+            padding: 30px;
+            z-index: 100;
+            min-width: 340px;
+            max-width: 90%;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .modal h3 {
+            margin-top: 0;
+            font-weight: normal;
+            border-bottom: 1px dashed var(--modal-border);
+            padding-bottom: 10px;
+            text-align: center;
+        }
+
+        .shortcut-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .shortcut-list li {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .kbd {
+            background: var(--btn-hover);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 12px;
+            color: var(--text);
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* --- THEME: THYMES SHOP UI --- */
+        .flower-shop-shelf {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 30px 15px 20px 15px;
+            background: linear-gradient(to bottom, #f3ede4, #e2d2ba);
+            border: 6px solid #8b5a2b;
+            border-radius: 6px;
+            box-shadow: inset 0 10px 20px rgba(0, 0, 0, 0.15), 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            margin-top: 20px;
+        }
+
+        .flower-shop-shelf::before {
+            content: "✿ Thymes ✿";
+            position: absolute;
+            top: -14px;
+            background: #8b5a2b;
+            color: #fff;
+            padding: 4px 15px;
+            font-size: 11px;
+            font-weight: bold;
+            border-radius: 4px;
+            letter-spacing: 1px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .theme-flower-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .theme-flower {
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.4s;
+            filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.25));
+            -webkit-tap-highlight-color: transparent;
+            z-index: 2;
+        }
+
+        .theme-flower:hover {
+            transform: scale(1.15) rotate(15deg) translateY(-5px);
+            filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.3));
+        }
+
+        .theme-flower-highlight {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        body.inverted-state .theme-flower-highlight {
+            background: radial-gradient(circle, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 70%);
+        }
+
+        .theme-flower-container.selected .theme-flower-highlight {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        /* --- FONTS: NEWSPAPER STACK UI --- */
+        .newspaper-stack {
+            position: relative;
+            padding: 20px 10px 40px 10px;
+            margin-top: 10px;
+            perspective: 1000px;
+        }
+
+        .newspaper-btn {
+            background: #fdfdf9;
+            color: #1a1a1a;
+            border: 1px solid #dcdcdc;
+            padding: 12px 15px;
+            margin: -25px auto 0 auto;
+            width: 85%;
+            display: block;
+            box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.15), inset 0 0 20px rgba(0, 0, 0, 0.02);
+            cursor: pointer;
+            position: relative;
+            text-align: left;
+            border-radius: 2px;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s, background-color 0.3s;
+            font-size: 16px;
+        }
+
+        .newspaper-btn.active-font {
+            background: #fff9c4;
+            border-color: #fbc02d;
+            color: #b71c1c;
+            z-index: 10;
+        }
+
+        body.inverted-state .newspaper-btn.active-font {
+            background: #3e2723;
+            border-color: #ffb300;
+            color: #ffecb3;
+        }
+
+        .newspaper-btn::before {
+            content: "THE DAILY FONT";
+            display: block;
+            font-size: 8px;
+            text-align: center;
+            font-family: inherit;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 6px;
+            padding-bottom: 2px;
+            color: #666;
+            letter-spacing: 1px;
+        }
+
+        .newspaper-btn:nth-child(odd) {
+            transform: rotate(-2deg);
+        }
+
+        .newspaper-btn:nth-child(even) {
+            transform: rotate(3deg);
+        }
+
+        .newspaper-btn:hover {
+            z-index: 20 !important;
+            transform: scale(1.05) translateY(-10px) rotate(0deg) !important;
+            box-shadow: 5px 15px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        /* --- COLORS: PANTONE PALETTE UI --- */
+        .pantone-palette {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .pantone-swatch {
+            width: 55px;
+            height: 75px;
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+            box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        body.inverted-state .pantone-swatch {
+            border-color: #555;
+        }
+
+        .pantone-swatch:hover {
+            transform: scale(1.15) translateY(-5px);
+            box-shadow: 4px 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .pantone-color {
+            flex: 1;
+            width: 100%;
+        }
+
+        .pantone-text {
+            height: 22px;
+            font-size: 9px;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            color: #333333;
+            background: #ffffff;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-top: 1px solid #eeeeee;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-weight: bold;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+        }
+
+        h1 {
+            font-size: 2em;
+        }
+
+        h2 {
+            font-size: 1.5em;
+        }
+
+        h3 {
+            font-size: 1.17em;
+        }
+
+        ul,
+        ol {
+            margin-left: 20px;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body data-theme="default">
+
+    <div id="fixed-controls">
+        <button class="tool-btn" id="toggle-bar-btn" onclick="toggleToolbar()">Hide Bar</button>
+        <button class="tool-btn" id="save-btn" onclick="saveDocument()">Save TXT</button>
+    </div>
+
+    <div id="toolbar">
+        <button class="tool-btn" onmousedown="formatText(event, 'formatBlock', 'H1')">H1</button>
+        <button class="tool-btn" onmousedown="formatText(event, 'formatBlock', 'H2')">H2</button>
+        <button class="tool-btn" onmousedown="formatText(event, 'formatBlock', 'H3')">H3</button>
+        <div class="divider"></div>
+        <button class="tool-btn" onmousedown="formatText(event, 'insertUnorderedList')">List</button>
+        <button class="tool-btn" onmousedown="formatText(event, 'insertOrderedList')">Num</button>
+        <div class="divider"></div>
+        <button class="tool-btn" onmousedown="applyHighlight(event)">Highlight</button>
+        <div class="divider"></div>
+        <button class="tool-btn" onclick="openModal(fontModal)">Font</button>
+        <div class="divider"></div>
+
+        <div style="display: flex;">
+            <button class="tool-btn" id="text-color-btn"
+                style="font-weight: bold; font-size: 14px; color: #e53935; border-top-right-radius: 0; border-bottom-right-radius: 0;"
+                onclick="applyCurrentColor()" title="Apply Text Color">Aa</button>
+            <button class="tool-btn"
+                style="border-top-left-radius: 0; border-bottom-left-radius: 0; padding: 6px 6px; font-size: 10px; border-left: 1px solid var(--modal-border);"
+                onclick="openModal(colorModal)" title="Choose Color (Alt+C)">▼</button>
+        </div>
+
+        <div class="divider"></div>
+        <button class="tool-btn" onclick="openModal(themesModal)">Theme</button>
+    </div>
+
+    <div id="editor" contenteditable="true" spellcheck="true"></div>
+
+    <div id="modal-overlay"></div>
+
+    <div id="shortcuts-modal" class="modal">
+        <h3>Shortcuts</h3>
+        <ul class="shortcut-list">
+            <li><span>Heading 1</span> <span class="kbd">Alt + 1</span></li>
+            <li><span>Heading 2</span> <span class="kbd">Alt + 2</span></li>
+            <li><span>Heading 3</span> <span class="kbd">Alt + 3</span></li>
+            <li><span>Bullet Points</span> <span class="kbd">Alt + U</span></li>
+            <li><span>Numbered List</span> <span class="kbd">Alt + O</span></li>
+            <li><span>Highlight Text</span> <span class="kbd">Alt + H</span></li>
+            <li><span>Text Color</span> <span class="kbd">Alt + C</span></li>
+            <li><span>Font Menu</span> <span class="kbd">Alt + F</span></li>
+            <li><span>Theme Menu</span> <span class="kbd">Alt + D</span></li>
+            <li><span>Invert Theme</span> <span class="kbd">Alt + I</span></li>
+            <li><span>Toggle Bar</span> <span class="kbd">Alt + B</span></li>
+            <li><span>Bold</span> <span class="kbd">Ctrl + B</span></li>
+            <li><span>Italics</span> <span class="kbd">Ctrl + I</span></li>
+            <li><span>Underline</span> <span class="kbd">Ctrl + U</span></li>
+            <li><span>Show Shortcuts</span> <span class="kbd">Win/Cmd + Shift + H</span></li>
+        </ul>
+    </div>
+
+    <div id="themes-modal" class="modal">
+        <div class="flower-shop-shelf">
+            <div class="theme-flower-container selected" id="th-default">
+                <div class="theme-flower-highlight"></div>
+                <svg class="theme-flower" onclick="setTheme('default', 'th-default')" viewBox="-10 -10 120 120">
+                    <path
+                        d="M 50 20 C 75 -5, 105 25, 80 50 C 105 75, 75 105, 50 80 C 25 105, -5 75, 20 50 C -5 25, 25 -5, 50 20 Z"
+                        fill="#f9f9f9" stroke="#dddddd" stroke-width="4" />
+                </svg>
+            </div>
+            <div class="theme-flower-container" id="th-grey">
+                <div class="theme-flower-highlight"></div>
+                <svg class="theme-flower" onclick="setTheme('grey-black', 'th-grey')" viewBox="-10 -10 120 120">
+                    <path
+                        d="M 50 20 C 75 -5, 105 25, 80 50 C 105 75, 75 105, 50 80 C 25 105, -5 75, 20 50 C -5 25, 25 -5, 50 20 Z"
+                        fill="#d9d9d9" stroke="#1a1a1a" stroke-width="4" />
+                </svg>
+            </div>
+            <div class="theme-flower-container" id="th-orange">
+                <div class="theme-flower-highlight"></div>
+                <svg class="theme-flower" onclick="setTheme('orange-black', 'th-orange')" viewBox="-10 -10 120 120">
+                    <path
+                        d="M 50 20 C 75 -5, 105 25, 80 50 C 105 75, 75 105, 50 80 C 25 105, -5 75, 20 50 C -5 25, 25 -5, 50 20 Z"
+                        fill="#0a0a0a" stroke="#ff8c00" stroke-width="4" />
+                </svg>
+            </div>
+            <div class="theme-flower-container" id="th-peach">
+                <div class="theme-flower-highlight"></div>
+                <svg class="theme-flower" onclick="setTheme('peach-white', 'th-peach')" viewBox="-10 -10 120 120">
+                    <path
+                        d="M 50 20 C 75 -5, 105 25, 80 50 C 105 75, 75 105, 50 80 C 25 105, -5 75, 20 50 C -5 25, 25 -5, 50 20 Z"
+                        fill="#ffb4a2" stroke="#ffffff" stroke-width="4" />
+                </svg>
+            </div>
+            <div class="theme-flower-container" id="th-steam">
+                <div class="theme-flower-highlight"></div>
+                <svg class="theme-flower" onclick="setTheme('steam', 'th-steam')" viewBox="-10 -10 120 120">
+                    <path
+                        d="M 50 20 C 75 -5, 105 25, 80 50 C 105 75, 75 105, 50 80 C 25 105, -5 75, 20 50 C -5 25, 25 -5, 50 20 Z"
+                        fill="#171a21" stroke="#66c0f4" stroke-width="4" />
+                </svg>
+            </div>
+            <div class="theme-flower-container" id="th-inv-default">
+                <div class="theme-flower-highlight"></div>
+                <svg class="theme-flower" onclick="setTheme('inverted-default', 'th-inv-default')"
+                    viewBox="-10 -10 120 120">
+                    <path
+                        d="M 50 20 C 75 -5, 105 25, 80 50 C 105 75, 75 105, 50 80 C 25 105, -5 75, 20 50 C -5 25, 25 -5, 50 20 Z"
+                        fill="#111111" stroke="#555555" stroke-width="4" />
+                </svg>
+            </div>
+            <div class="theme-flower-container" id="th-inv-peach">
+                <div class="theme-flower-highlight"></div>
+                <svg class="theme-flower" onclick="setTheme('inverted-peach', 'th-inv-peach')"
+                    viewBox="-10 -10 120 120">
+                    <path
+                        d="M 50 20 C 75 -5, 105 25, 80 50 C 105 75, 75 105, 50 80 C 25 105, -5 75, 20 50 C -5 25, 25 -5, 50 20 Z"
+                        fill="#ffffff" stroke="#e88d7d" stroke-width="4" />
+                </svg>
+            </div>
+            <div class="theme-flower-container" id="th-invert-toggle">
+                <div class="theme-flower-highlight"></div>
+                <svg class="theme-flower" onclick="toggleInvert('th-invert-toggle')" viewBox="-10 -10 120 120">
+                    <defs>
+                        <linearGradient id="invert-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="50%" stop-color="#ffffff" />
+                            <stop offset="50%" stop-color="#000000" />
+                        </linearGradient>
+                    </defs>
+                    <path
+                        d="M 50 20 C 75 -5, 105 25, 80 50 C 105 75, 75 105, 50 80 C 25 105, -5 75, 20 50 C -5 25, 25 -5, 50 20 Z"
+                        fill="url(#invert-grad)" stroke="#888888" stroke-width="4" />
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <div id="font-modal" class="modal" style="background: transparent; border: none; box-shadow: none;">
+        <div class="newspaper-stack">
+            <div class="newspaper-btn active-font" style="font-family: 'Courier New', monospace;"
+                onclick="applyFont('Courier New, monospace', this)">Courier New</div>
+            <div class="newspaper-btn" style="font-family: Arial, sans-serif;"
+                onclick="applyFont('Arial, sans-serif', this)">Arial Standard</div>
+            <div class="newspaper-btn" style="font-family: 'Times New Roman', serif;"
+                onclick="applyFont('Times New Roman, serif', this)">Times New Roman</div>
+            <div class="newspaper-btn" style="font-family: Georgia, serif;" onclick="applyFont('Georgia, serif', this)">
+                Georgia Chronicle</div>
+            <div class="newspaper-btn" style="font-family: Verdana, sans-serif;"
+                onclick="applyFont('Verdana, sans-serif', this)">Verdana Gazette</div>
+            <div class="newspaper-btn" style="font-family: 'Comic Sans MS', cursive, sans-serif;"
+                onclick="applyFont('Comic Sans MS, cursive, sans-serif', this)">Comic Sans Funnies</div>
+        </div>
+    </div>
+
+    <div id="color-modal" class="modal">
+        <h3 style="margin-bottom: 5px;">Color Palette</h3>
+        <div class="pantone-palette">
+            <div class="pantone-swatch" onclick="applyPresetColor('#e53935')">
+                <div class="pantone-color" style="background: #e53935;"></div>
+                <div class="pantone-text">RED 35</div>
+            </div>
+            <div class="pantone-swatch" onclick="applyPresetColor('#d81b60')">
+                <div class="pantone-color" style="background: #d81b60;"></div>
+                <div class="pantone-text">PINK 60</div>
+            </div>
+            <div class="pantone-swatch" onclick="applyPresetColor('#8e24aa')">
+                <div class="pantone-color" style="background: #8e24aa;"></div>
+                <div class="pantone-text">PURP AA</div>
+            </div>
+            <div class="pantone-swatch" onclick="applyPresetColor('#3949ab')">
+                <div class="pantone-color" style="background: #3949ab;"></div>
+                <div class="pantone-text">INDG AB</div>
+            </div>
+            <div class="pantone-swatch" onclick="applyPresetColor('#1e88e5')">
+                <div class="pantone-color" style="background: #1e88e5;"></div>
+                <div class="pantone-text">BLUE E5</div>
+            </div>
+            <div class="pantone-swatch" onclick="applyPresetColor('#00897b')">
+                <div class="pantone-color" style="background: #00897b;"></div>
+                <div class="pantone-text">TEAL 7B</div>
+            </div>
+            <div class="pantone-swatch" onclick="applyPresetColor('#43a047')">
+                <div class="pantone-color" style="background: #43a047;"></div>
+                <div class="pantone-text">GRN 47</div>
+            </div>
+            <div class="pantone-swatch" onclick="applyPresetColor('#fdd835')">
+                <div class="pantone-color" style="background: #fdd835;"></div>
+                <div class="pantone-text">YEL 35</div>
+            </div>
+            <div class="pantone-swatch" onclick="applyPresetColor('#fb8c00')">
+                <div class="pantone-color" style="background: #fb8c00;"></div>
+                <div class="pantone-text">ORG 00</div>
+            </div>
+            <div class="pantone-swatch" onclick="applyPresetColor('#6d4c41')">
+                <div class="pantone-color" style="background: #6d4c41;"></div>
+                <div class="pantone-text">BRN 41</div>
+            </div>
+            <div class="pantone-swatch" onclick="applyPresetColor('#757575')">
+                <div class="pantone-color" style="background: #757575;"></div>
+                <div class="pantone-text">GRY 75</div>
+            </div>
+            <div class="pantone-swatch" onclick="applyPresetColor('#111111')">
+                <div class="pantone-color" style="background: #111111;"></div>
+                <div class="pantone-text">BLK 11</div>
+            </div>
+            <div class="pantone-swatch" onclick="applyPresetColor('#f9f9f9')">
+                <div class="pantone-color" style="background: #f9f9f9;"></div>
+                <div class="pantone-text">WHT F9</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const editor = document.getElementById('editor');
+        const overlay = document.getElementById('modal-overlay');
+        const shortcutsModal = document.getElementById('shortcuts-modal');
+        const themesModal = document.getElementById('themes-modal');
+        const fontModal = document.getElementById('font-modal');
+        const colorModal = document.getElementById('color-modal');
+        const toolbar = document.getElementById('toolbar');
+
+        let activeModal = null;
+        let currentTextColor = '#e53935';
+
+        window.onload = () => editor.focus();
+
+        function toggleToolbar() {
+            toolbar.classList.toggle('hidden');
+            document.getElementById('toggle-bar-btn').innerText = toolbar.classList.contains('hidden') ? 'Show Bar' : 'Hide Bar';
+        }
+
+        function formatText(e, command, value = null) {
+            e.preventDefault();
+            document.execCommand(command, false, value);
+        }
+
+        function applyHighlight(e) {
+            e.preventDefault();
+            const selection = window.getSelection();
+            if (selection.isCollapsed) return;
+
+            let node = selection.anchorNode;
+            let markNode = null;
+            while (node && node.id !== 'editor') {
+                if (node.nodeName === 'MARK') { markNode = node; break; }
+                node = node.parentNode;
+            }
+
+            if (markNode) {
+                const parent = markNode.parentNode;
+                while (markNode.firstChild) { parent.insertBefore(markNode.firstChild, markNode); }
+                parent.removeChild(markNode);
+                parent.normalize();
+            } else {
+                document.execCommand('backColor', false, '#ff00fe');
+                document.getElementById('editor').querySelectorAll('*').forEach(el => {
+                    if (el.style.backgroundColor === 'rgb(255, 0, 254)' || el.style.backgroundColor === '#ff00fe') {
+                        const mark = document.createElement('mark');
+                        mark.innerHTML = el.innerHTML;
+                        el.parentNode.replaceChild(mark, el);
+                    }
+                });
+            }
+            editor.focus();
+        }
+
+        function applyCurrentColor() {
+            document.execCommand('foreColor', false, currentTextColor);
+            editor.focus();
+        }
+
+        function applyPresetColor(hex) {
+            currentTextColor = hex;
+            document.execCommand('foreColor', false, hex);
+            document.getElementById('text-color-btn').style.color = hex;
+            editor.focus();
+            closeModals();
+        }
+
+        function applyFont(fontName, btnElement) {
+            const selection = window.getSelection().toString();
+            if (selection.length > 0) {
+                document.execCommand('fontName', false, fontName);
+            } else {
+                document.documentElement.style.setProperty('--font-main', fontName);
+                if (btnElement) {
+                    document.querySelectorAll('.newspaper-btn').forEach(btn => btn.classList.remove('active-font'));
+                    btnElement.classList.add('active-font');
+                }
+            }
+            closeModals();
+        }
+
+        overlay.addEventListener('click', closeModals);
+
+        function openModal(modalEl) {
+            closeModals();
+            activeModal = modalEl;
+            if (modalEl === fontModal) {
+                const stack = document.querySelector('.newspaper-stack');
+                const btns = Array.from(stack.children);
+                btns.sort(() => Math.random() - 0.5);
+                btns.forEach(btn => stack.appendChild(btn));
+            }
+            overlay.classList.add('active');
+            modalEl.classList.add('active');
+        }
+
+        function closeModals() {
+            overlay.classList.remove('active');
+            if (activeModal) activeModal.classList.remove('active');
+            activeModal = null;
+            editor.focus();
+        }
+
+        function updateActiveFlower(containerId) {
+            document.querySelectorAll('.theme-flower-container').forEach(el => el.classList.remove('selected'));
+            if (containerId) document.getElementById(containerId)?.classList.add('selected');
+        }
+
+        function setTheme(themeName, containerId) {
+            document.body.setAttribute('data-theme', themeName);
+            const bgHex = getComputedStyle(document.body).getPropertyValue('--bg').trim();
+            document.querySelector('meta[name=theme-color]')?.setAttribute("content", bgHex);
+            updateActiveFlower(containerId);
+            closeModals();
+        }
+
+        function toggleInvert(containerId) {
+            document.body.classList.toggle('inverted-state');
+            updateActiveFlower(containerId);
+            closeModals();
+        }
+
+        function saveDocument() {
+            const text = editor.innerText;
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            const date = new Date();
+            const timestamp = `${date.getFullYear()}${(date.getMonth() + 1).toString().padStart(2, '0')}${date.getDate().toString().padStart(2, '0')}`;
+            a.href = url;
+            a.download = `JAMN_${timestamp}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.metaKey && e.shiftKey && e.key.toLowerCase() === 'h') {
+                e.preventDefault(); openModal(shortcutsModal); return;
+            }
+            if (e.key === 'Escape' && activeModal) {
+                closeModals(); return;
+            }
+            if ((e.ctrlKey || e.metaKey) && !e.altKey && !e.shiftKey) {
+                switch (e.key.toLowerCase()) {
+                    case 'b': e.preventDefault(); formatText(e, 'bold'); return;
+                    case 'i': e.preventDefault(); formatText(e, 'italic'); return;
+                    case 'u': e.preventDefault(); formatText(e, 'underline'); return;
+                }
+            }
+            if (e.altKey && !activeModal) {
+                switch (e.key.toLowerCase()) {
+                    case '1': e.preventDefault(); document.execCommand('formatBlock', false, 'H1'); break;
+                    case '2': e.preventDefault(); document.execCommand('formatBlock', false, 'H2'); break;
+                    case '3': e.preventDefault(); document.execCommand('formatBlock', false, 'H3'); break;
+                    case 'u': e.preventDefault(); document.execCommand('insertUnorderedList', false, null); break;
+                    case 'o': e.preventDefault(); document.execCommand('insertOrderedList', false, null); break;
+                    case 'h': e.preventDefault(); applyHighlight(e); break;
+                    case 'c': e.preventDefault(); openModal(colorModal); break;
+                    case 'b': e.preventDefault(); toggleToolbar(); break;
+                    case 'i': e.preventDefault(); toggleInvert('th-invert-toggle'); break;
+                    case 'f': e.preventDefault(); openModal(fontModal); break;
+                    case 'd': e.preventDefault(); openModal(themesModal); break;
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
