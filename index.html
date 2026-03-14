@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -8,8 +7,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#f9f9f9">
     <title>JAMN</title>
-    <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' font-family='Courier New, monospace'>T</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' font-family='Courier New, monospace'>T</text></svg>">
     <style>
         :root {
             --bg: #f9f9f9;
@@ -101,8 +99,7 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        body,
-        html {
+        body, html {
             margin: 0;
             padding: 0;
             width: 100%;
@@ -226,8 +223,7 @@
             white-space: nowrap;
         }
 
-        .tool-btn:hover,
-        .tool-btn:active {
+        .tool-btn:hover, .tool-btn:active {
             background: var(--btn-hover);
             color: var(--text);
             border-color: var(--modal-border);
@@ -291,7 +287,7 @@
             z-index: 100;
             min-width: 340px;
             max-width: 90%;
-            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 15px 45px rgba(0,0,0,0.1);
             border-radius: 12px;
             opacity: 0;
             visibility: hidden;
@@ -344,7 +340,7 @@
             background: linear-gradient(to bottom, #f3ede4, #e2d2ba);
             border: 6px solid #8b5a2b;
             border-radius: 6px;
-            box-shadow: inset 0 10px 20px rgba(0, 0, 0, 0.15), 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: inset 0 10px 20px rgba(0,0,0,0.15), 0 5px 15px rgba(0,0,0,0.1);
             position: relative;
             margin-top: 20px;
         }
@@ -362,7 +358,7 @@
             letter-spacing: 1px;
             left: 50%;
             transform: translateX(-50%);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
         .theme-flower-container {
@@ -377,14 +373,14 @@
             height: 50px;
             cursor: pointer;
             transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.4s;
-            filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.25));
+            filter: drop-shadow(0 4px 4px rgba(0,0,0,0.25));
             -webkit-tap-highlight-color: transparent;
             z-index: 2;
         }
 
         .theme-flower:hover {
             transform: scale(1.15) rotate(15deg) translateY(-5px);
-            filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.3));
+            filter: drop-shadow(0 8px 12px rgba(0,0,0,0.3));
         }
 
         .theme-flower-highlight {
@@ -395,7 +391,7 @@
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%);
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
             opacity: 0;
             transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             z-index: 1;
@@ -403,7 +399,7 @@
         }
 
         body.inverted-state .theme-flower-highlight {
-            background: radial-gradient(circle, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 70%);
+            background: radial-gradient(circle, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 70%);
         }
 
         .theme-flower-container.selected .theme-flower-highlight {
@@ -427,7 +423,7 @@
             margin: -25px auto 0 auto;
             width: 85%;
             display: block;
-            box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.15), inset 0 0 20px rgba(0, 0, 0, 0.02);
+            box-shadow: 2px 4px 8px rgba(0,0,0,0.15), inset 0 0 20px rgba(0,0,0,0.02);
             cursor: pointer;
             position: relative;
             text-align: left;
@@ -462,18 +458,13 @@
             letter-spacing: 1px;
         }
 
-        .newspaper-btn:nth-child(odd) {
-            transform: rotate(-2deg);
-        }
-
-        .newspaper-btn:nth-child(even) {
-            transform: rotate(3deg);
-        }
+        .newspaper-btn:nth-child(odd) { transform: rotate(-2deg); }
+        .newspaper-btn:nth-child(even) { transform: rotate(3deg); }
 
         .newspaper-btn:hover {
             z-index: 20 !important;
             transform: scale(1.05) translateY(-10px) rotate(0deg) !important;
-            box-shadow: 5px 15px 25px rgba(0, 0, 0, 0.25);
+            box-shadow: 5px 15px 25px rgba(0,0,0,0.25);
         }
 
         /* --- COLORS: PANTONE PALETTE UI --- */
@@ -490,7 +481,7 @@
             height: 75px;
             background: #ffffff;
             border: 1px solid #e0e0e0;
-            box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 2px 4px 8px rgba(0,0,0,0.1);
             display: flex;
             flex-direction: column;
             cursor: pointer;
@@ -499,13 +490,11 @@
             overflow: hidden;
         }
 
-        body.inverted-state .pantone-swatch {
-            border-color: #555;
-        }
+        body.inverted-state .pantone-swatch { border-color: #555; }
 
         .pantone-swatch:hover {
             transform: scale(1.15) translateY(-5px);
-            box-shadow: 4px 10px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 4px 10px 20px rgba(0,0,0,0.2);
         }
 
         .pantone-color {
@@ -527,38 +516,14 @@
             border-top: 1px solid #eeeeee;
         }
 
-        h1,
-        h2,
-        h3 {
-            font-weight: bold;
-            margin-top: 1.5em;
-            margin-bottom: 0.5em;
-        }
-
-        h1 {
-            font-size: 2em;
-        }
-
-        h2 {
-            font-size: 1.5em;
-        }
-
-        h3 {
-            font-size: 1.17em;
-        }
-
-        ul,
-        ol {
-            margin-left: 20px;
-            padding-left: 20px;
-        }
-
-        li {
-            margin-bottom: 5px;
-        }
+        h1, h2, h3 { font-weight: bold; margin-top: 1.5em; margin-bottom: 0.5em; }
+        h1 { font-size: 2em; }
+        h2 { font-size: 1.5em; }
+        h3 { font-size: 1.17em; }
+        ul, ol { margin-left: 20px; padding-left: 20px; }
+        li { margin-bottom: 5px; }
     </style>
 </head>
-
 <body data-theme="default">
 
     <div id="fixed-controls">
@@ -578,16 +543,12 @@
         <div class="divider"></div>
         <button class="tool-btn" onclick="openModal(fontModal)">Font</button>
         <div class="divider"></div>
-
+        
         <div style="display: flex;">
-            <button class="tool-btn" id="text-color-btn"
-                style="font-weight: bold; font-size: 14px; color: #e53935; border-top-right-radius: 0; border-bottom-right-radius: 0;"
-                onclick="applyCurrentColor()" title="Apply Text Color">Aa</button>
-            <button class="tool-btn"
-                style="border-top-left-radius: 0; border-bottom-left-radius: 0; padding: 6px 6px; font-size: 10px; border-left: 1px solid var(--modal-border);"
-                onclick="openModal(colorModal)" title="Choose Color (Alt+C)">▼</button>
+            <button class="tool-btn" id="text-color-btn" style="font-weight: bold; font-size: 14px; color: #e53935; border-top-right-radius: 0; border-bottom-right-radius: 0;" onclick="applyCurrentColor()" title="Apply Text Color">Aa</button>
+            <button class="tool-btn" style="border-top-left-radius: 0; border-bottom-left-radius: 0; padding: 6px 6px; font-size: 10px; border-left: 1px solid var(--modal-border);" onclick="openModal(colorModal)" title="Choose Color (Alt+K)">▼</button>
         </div>
-
+        
         <div class="divider"></div>
         <button class="tool-btn" onclick="openModal(themesModal)">Theme</button>
     </div>
@@ -605,11 +566,12 @@
             <li><span>Bullet Points</span> <span class="kbd">Alt + U</span></li>
             <li><span>Numbered List</span> <span class="kbd">Alt + O</span></li>
             <li><span>Highlight Text</span> <span class="kbd">Alt + H</span></li>
-            <li><span>Text Color</span> <span class="kbd">Alt + C</span></li>
+            <li><span>Text Color</span> <span class="kbd">Alt + K</span></li>
             <li><span>Font Menu</span> <span class="kbd">Alt + F</span></li>
             <li><span>Theme Menu</span> <span class="kbd">Alt + D</span></li>
             <li><span>Invert Theme</span> <span class="kbd">Alt + I</span></li>
             <li><span>Toggle Bar</span> <span class="kbd">Alt + B</span></li>
+            <li><span>Credits</span> <span class="kbd">Alt + C</span></li>
             <li><span>Bold</span> <span class="kbd">Ctrl + B</span></li>
             <li><span>Italics</span> <span class="kbd">Ctrl + I</span></li>
             <li><span>Underline</span> <span class="kbd">Ctrl + U</span></li>
@@ -621,61 +583,31 @@
         <div class="flower-shop-shelf">
             <div class="theme-flower-container selected" id="th-default">
                 <div class="theme-flower-highlight"></div>
-                <svg class="theme-flower" onclick="setTheme('default', 'th-default')" viewBox="-10 -10 120 120">
-                    <path
-                        d="M 50 20 C 75 -5, 105 25, 80 50 C 105 75, 75 105, 50 80 C 25 105, -5 75, 20 50 C -5 25, 25 -5, 50 20 Z"
-                        fill="#f9f9f9" stroke="#dddddd" stroke-width="4" />
-                </svg>
+                <svg class="theme-flower" onclick="setTheme('default', 'th-default')" viewBox="-10 -10 120 120"><path d="M 50 20 C 75 -5, 105 25, 80 50 C 105 75, 75 105, 50 80 C 25 105, -5 75, 20 50 C -5 25, 25 -5, 50 20 Z" fill="#f9f9f9" stroke="#dddddd" stroke-width="4"/></svg>
             </div>
             <div class="theme-flower-container" id="th-grey">
                 <div class="theme-flower-highlight"></div>
-                <svg class="theme-flower" onclick="setTheme('grey-black', 'th-grey')" viewBox="-10 -10 120 120">
-                    <path
-                        d="M 50 20 C 75 -5, 105 25, 80 50 C 105 75, 75 105, 50 80 C 25 105, -5 75, 20 50 C -5 25, 25 -5, 50 20 Z"
-                        fill="#d9d9d9" stroke="#1a1a1a" stroke-width="4" />
-                </svg>
+                <svg class="theme-flower" onclick="setTheme('grey-black', 'th-grey')" viewBox="-10 -10 120 120"><path d="M 50 20 C 75 -5, 105 25, 80 50 C 105 75, 75 105, 50 80 C 25 105, -5 75, 20 50 C -5 25, 25 -5, 50 20 Z" fill="#d9d9d9" stroke="#1a1a1a" stroke-width="4"/></svg>
             </div>
             <div class="theme-flower-container" id="th-orange">
                 <div class="theme-flower-highlight"></div>
-                <svg class="theme-flower" onclick="setTheme('orange-black', 'th-orange')" viewBox="-10 -10 120 120">
-                    <path
-                        d="M 50 20 C 75 -5, 105 25, 80 50 C 105 75, 75 105, 50 80 C 25 105, -5 75, 20 50 C -5 25, 25 -5, 50 20 Z"
-                        fill="#0a0a0a" stroke="#ff8c00" stroke-width="4" />
-                </svg>
+                <svg class="theme-flower" onclick="setTheme('orange-black', 'th-orange')" viewBox="-10 -10 120 120"><path d="M 50 20 C 75 -5, 105 25, 80 50 C 105 75, 75 105, 50 80 C 25 105, -5 75, 20 50 C -5 25, 25 -5, 50 20 Z" fill="#0a0a0a" stroke="#ff8c00" stroke-width="4"/></svg>
             </div>
             <div class="theme-flower-container" id="th-peach">
                 <div class="theme-flower-highlight"></div>
-                <svg class="theme-flower" onclick="setTheme('peach-white', 'th-peach')" viewBox="-10 -10 120 120">
-                    <path
-                        d="M 50 20 C 75 -5, 105 25, 80 50 C 105 75, 75 105, 50 80 C 25 105, -5 75, 20 50 C -5 25, 25 -5, 50 20 Z"
-                        fill="#ffb4a2" stroke="#ffffff" stroke-width="4" />
-                </svg>
+                <svg class="theme-flower" onclick="setTheme('peach-white', 'th-peach')" viewBox="-10 -10 120 120"><path d="M 50 20 C 75 -5, 105 25, 80 50 C 105 75, 75 105, 50 80 C 25 105, -5 75, 20 50 C -5 25, 25 -5, 50 20 Z" fill="#ffb4a2" stroke="#ffffff" stroke-width="4"/></svg>
             </div>
             <div class="theme-flower-container" id="th-steam">
                 <div class="theme-flower-highlight"></div>
-                <svg class="theme-flower" onclick="setTheme('steam', 'th-steam')" viewBox="-10 -10 120 120">
-                    <path
-                        d="M 50 20 C 75 -5, 105 25, 80 50 C 105 75, 75 105, 50 80 C 25 105, -5 75, 20 50 C -5 25, 25 -5, 50 20 Z"
-                        fill="#171a21" stroke="#66c0f4" stroke-width="4" />
-                </svg>
+                <svg class="theme-flower" onclick="setTheme('steam', 'th-steam')" viewBox="-10 -10 120 120"><path d="M 50 20 C 75 -5, 105 25, 80 50 C 105 75, 75 105, 50 80 C 25 105, -5 75, 20 50 C -5 25, 25 -5, 50 20 Z" fill="#171a21" stroke="#66c0f4" stroke-width="4"/></svg>
             </div>
             <div class="theme-flower-container" id="th-inv-default">
                 <div class="theme-flower-highlight"></div>
-                <svg class="theme-flower" onclick="setTheme('inverted-default', 'th-inv-default')"
-                    viewBox="-10 -10 120 120">
-                    <path
-                        d="M 50 20 C 75 -5, 105 25, 80 50 C 105 75, 75 105, 50 80 C 25 105, -5 75, 20 50 C -5 25, 25 -5, 50 20 Z"
-                        fill="#111111" stroke="#555555" stroke-width="4" />
-                </svg>
+                <svg class="theme-flower" onclick="setTheme('inverted-default', 'th-inv-default')" viewBox="-10 -10 120 120"><path d="M 50 20 C 75 -5, 105 25, 80 50 C 105 75, 75 105, 50 80 C 25 105, -5 75, 20 50 C -5 25, 25 -5, 50 20 Z" fill="#111111" stroke="#555555" stroke-width="4"/></svg>
             </div>
             <div class="theme-flower-container" id="th-inv-peach">
                 <div class="theme-flower-highlight"></div>
-                <svg class="theme-flower" onclick="setTheme('inverted-peach', 'th-inv-peach')"
-                    viewBox="-10 -10 120 120">
-                    <path
-                        d="M 50 20 C 75 -5, 105 25, 80 50 C 105 75, 75 105, 50 80 C 25 105, -5 75, 20 50 C -5 25, 25 -5, 50 20 Z"
-                        fill="#ffffff" stroke="#e88d7d" stroke-width="4" />
-                </svg>
+                <svg class="theme-flower" onclick="setTheme('inverted-peach', 'th-inv-peach')" viewBox="-10 -10 120 120"><path d="M 50 20 C 75 -5, 105 25, 80 50 C 105 75, 75 105, 50 80 C 25 105, -5 75, 20 50 C -5 25, 25 -5, 50 20 Z" fill="#ffffff" stroke="#e88d7d" stroke-width="4"/></svg>
             </div>
             <div class="theme-flower-container" id="th-invert-toggle">
                 <div class="theme-flower-highlight"></div>
@@ -686,9 +618,7 @@
                             <stop offset="50%" stop-color="#000000" />
                         </linearGradient>
                     </defs>
-                    <path
-                        d="M 50 20 C 75 -5, 105 25, 80 50 C 105 75, 75 105, 50 80 C 25 105, -5 75, 20 50 C -5 25, 25 -5, 50 20 Z"
-                        fill="url(#invert-grad)" stroke="#888888" stroke-width="4" />
+                    <path d="M 50 20 C 75 -5, 105 25, 80 50 C 105 75, 75 105, 50 80 C 25 105, -5 75, 20 50 C -5 25, 25 -5, 50 20 Z" fill="url(#invert-grad)" stroke="#888888" stroke-width="4"/>
                 </svg>
             </div>
         </div>
@@ -696,76 +626,31 @@
 
     <div id="font-modal" class="modal" style="background: transparent; border: none; box-shadow: none;">
         <div class="newspaper-stack">
-            <div class="newspaper-btn active-font" style="font-family: 'Courier New', monospace;"
-                onclick="applyFont('Courier New, monospace', this)">Courier New</div>
-            <div class="newspaper-btn" style="font-family: Arial, sans-serif;"
-                onclick="applyFont('Arial, sans-serif', this)">Arial Standard</div>
-            <div class="newspaper-btn" style="font-family: 'Times New Roman', serif;"
-                onclick="applyFont('Times New Roman, serif', this)">Times New Roman</div>
-            <div class="newspaper-btn" style="font-family: Georgia, serif;" onclick="applyFont('Georgia, serif', this)">
-                Georgia Chronicle</div>
-            <div class="newspaper-btn" style="font-family: Verdana, sans-serif;"
-                onclick="applyFont('Verdana, sans-serif', this)">Verdana Gazette</div>
-            <div class="newspaper-btn" style="font-family: 'Comic Sans MS', cursive, sans-serif;"
-                onclick="applyFont('Comic Sans MS, cursive, sans-serif', this)">Comic Sans Funnies</div>
+            <div class="newspaper-btn active-font" style="font-family: 'Courier New', monospace;" onclick="applyFont('Courier New, monospace', this)">Courier New</div>
+            <div class="newspaper-btn" style="font-family: Arial, sans-serif;" onclick="applyFont('Arial, sans-serif', this)">Arial Standard</div>
+            <div class="newspaper-btn" style="font-family: 'Times New Roman', serif;" onclick="applyFont('Times New Roman, serif', this)">Times New Roman</div>
+            <div class="newspaper-btn" style="font-family: Georgia, serif;" onclick="applyFont('Georgia, serif', this)">Georgia Chronicle</div>
+            <div class="newspaper-btn" style="font-family: Verdana, sans-serif;" onclick="applyFont('Verdana, sans-serif', this)">Verdana Gazette</div>
+            <div class="newspaper-btn" style="font-family: 'Comic Sans MS', cursive, sans-serif;" onclick="applyFont('Comic Sans MS, cursive, sans-serif', this)">Comic Sans Funnies</div>
         </div>
     </div>
 
     <div id="color-modal" class="modal">
         <h3 style="margin-bottom: 5px;">Color Palette</h3>
         <div class="pantone-palette">
-            <div class="pantone-swatch" onclick="applyPresetColor('#e53935')">
-                <div class="pantone-color" style="background: #e53935;"></div>
-                <div class="pantone-text">RED 35</div>
-            </div>
-            <div class="pantone-swatch" onclick="applyPresetColor('#d81b60')">
-                <div class="pantone-color" style="background: #d81b60;"></div>
-                <div class="pantone-text">PINK 60</div>
-            </div>
-            <div class="pantone-swatch" onclick="applyPresetColor('#8e24aa')">
-                <div class="pantone-color" style="background: #8e24aa;"></div>
-                <div class="pantone-text">PURP AA</div>
-            </div>
-            <div class="pantone-swatch" onclick="applyPresetColor('#3949ab')">
-                <div class="pantone-color" style="background: #3949ab;"></div>
-                <div class="pantone-text">INDG AB</div>
-            </div>
-            <div class="pantone-swatch" onclick="applyPresetColor('#1e88e5')">
-                <div class="pantone-color" style="background: #1e88e5;"></div>
-                <div class="pantone-text">BLUE E5</div>
-            </div>
-            <div class="pantone-swatch" onclick="applyPresetColor('#00897b')">
-                <div class="pantone-color" style="background: #00897b;"></div>
-                <div class="pantone-text">TEAL 7B</div>
-            </div>
-            <div class="pantone-swatch" onclick="applyPresetColor('#43a047')">
-                <div class="pantone-color" style="background: #43a047;"></div>
-                <div class="pantone-text">GRN 47</div>
-            </div>
-            <div class="pantone-swatch" onclick="applyPresetColor('#fdd835')">
-                <div class="pantone-color" style="background: #fdd835;"></div>
-                <div class="pantone-text">YEL 35</div>
-            </div>
-            <div class="pantone-swatch" onclick="applyPresetColor('#fb8c00')">
-                <div class="pantone-color" style="background: #fb8c00;"></div>
-                <div class="pantone-text">ORG 00</div>
-            </div>
-            <div class="pantone-swatch" onclick="applyPresetColor('#6d4c41')">
-                <div class="pantone-color" style="background: #6d4c41;"></div>
-                <div class="pantone-text">BRN 41</div>
-            </div>
-            <div class="pantone-swatch" onclick="applyPresetColor('#757575')">
-                <div class="pantone-color" style="background: #757575;"></div>
-                <div class="pantone-text">GRY 75</div>
-            </div>
-            <div class="pantone-swatch" onclick="applyPresetColor('#111111')">
-                <div class="pantone-color" style="background: #111111;"></div>
-                <div class="pantone-text">BLK 11</div>
-            </div>
-            <div class="pantone-swatch" onclick="applyPresetColor('#f9f9f9')">
-                <div class="pantone-color" style="background: #f9f9f9;"></div>
-                <div class="pantone-text">WHT F9</div>
-            </div>
+            <div class="pantone-swatch" onclick="applyPresetColor('#e53935')"><div class="pantone-color" style="background: #e53935;"></div><div class="pantone-text">RED 35</div></div>
+            <div class="pantone-swatch" onclick="applyPresetColor('#d81b60')"><div class="pantone-color" style="background: #d81b60;"></div><div class="pantone-text">PINK 60</div></div>
+            <div class="pantone-swatch" onclick="applyPresetColor('#8e24aa')"><div class="pantone-color" style="background: #8e24aa;"></div><div class="pantone-text">PURP AA</div></div>
+            <div class="pantone-swatch" onclick="applyPresetColor('#3949ab')"><div class="pantone-color" style="background: #3949ab;"></div><div class="pantone-text">INDG AB</div></div>
+            <div class="pantone-swatch" onclick="applyPresetColor('#1e88e5')"><div class="pantone-color" style="background: #1e88e5;"></div><div class="pantone-text">BLUE E5</div></div>
+            <div class="pantone-swatch" onclick="applyPresetColor('#00897b')"><div class="pantone-color" style="background: #00897b;"></div><div class="pantone-text">TEAL 7B</div></div>
+            <div class="pantone-swatch" onclick="applyPresetColor('#43a047')"><div class="pantone-color" style="background: #43a047;"></div><div class="pantone-text">GRN 47</div></div>
+            <div class="pantone-swatch" onclick="applyPresetColor('#fdd835')"><div class="pantone-color" style="background: #fdd835;"></div><div class="pantone-text">YEL 35</div></div>
+            <div class="pantone-swatch" onclick="applyPresetColor('#fb8c00')"><div class="pantone-color" style="background: #fb8c00;"></div><div class="pantone-text">ORG 00</div></div>
+            <div class="pantone-swatch" onclick="applyPresetColor('#6d4c41')"><div class="pantone-color" style="background: #6d4c41;"></div><div class="pantone-text">BRN 41</div></div>
+            <div class="pantone-swatch" onclick="applyPresetColor('#757575')"><div class="pantone-color" style="background: #757575;"></div><div class="pantone-text">GRY 75</div></div>
+            <div class="pantone-swatch" onclick="applyPresetColor('#111111')"><div class="pantone-color" style="background: #111111;"></div><div class="pantone-text">BLK 11</div></div>
+            <div class="pantone-swatch" onclick="applyPresetColor('#f9f9f9')"><div class="pantone-color" style="background: #f9f9f9;"></div><div class="pantone-text">WHT F9</div></div>
         </div>
     </div>
 
@@ -779,7 +664,7 @@
         const toolbar = document.getElementById('toolbar');
 
         let activeModal = null;
-        let currentTextColor = '#e53935';
+        let currentTextColor = '#e53935'; 
 
         window.onload = () => editor.focus();
 
@@ -874,7 +759,7 @@
 
         function updateActiveFlower(containerId) {
             document.querySelectorAll('.theme-flower-container').forEach(el => el.classList.remove('selected'));
-            if (containerId) document.getElementById(containerId)?.classList.add('selected');
+            if(containerId) document.getElementById(containerId)?.classList.add('selected');
         }
 
         function setTheme(themeName, containerId) {
@@ -897,7 +782,7 @@
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             const date = new Date();
-            const timestamp = `${date.getFullYear()}${(date.getMonth() + 1).toString().padStart(2, '0')}${date.getDate().toString().padStart(2, '0')}`;
+            const timestamp = `${date.getFullYear()}${(date.getMonth()+1).toString().padStart(2, '0')}${date.getDate().toString().padStart(2, '0')}`;
             a.href = url;
             a.download = `JAMN_${timestamp}.txt`;
             document.body.appendChild(a);
@@ -914,21 +799,22 @@
                 closeModals(); return;
             }
             if ((e.ctrlKey || e.metaKey) && !e.altKey && !e.shiftKey) {
-                switch (e.key.toLowerCase()) {
+                switch(e.key.toLowerCase()) {
                     case 'b': e.preventDefault(); formatText(e, 'bold'); return;
                     case 'i': e.preventDefault(); formatText(e, 'italic'); return;
                     case 'u': e.preventDefault(); formatText(e, 'underline'); return;
                 }
             }
             if (e.altKey && !activeModal) {
-                switch (e.key.toLowerCase()) {
+                switch(e.key.toLowerCase()) {
                     case '1': e.preventDefault(); document.execCommand('formatBlock', false, 'H1'); break;
                     case '2': e.preventDefault(); document.execCommand('formatBlock', false, 'H2'); break;
                     case '3': e.preventDefault(); document.execCommand('formatBlock', false, 'H3'); break;
                     case 'u': e.preventDefault(); document.execCommand('insertUnorderedList', false, null); break;
                     case 'o': e.preventDefault(); document.execCommand('insertOrderedList', false, null); break;
                     case 'h': e.preventDefault(); applyHighlight(e); break;
-                    case 'c': e.preventDefault(); openModal(colorModal); break;
+                    case 'k': e.preventDefault(); openModal(colorModal); break; // Color moved to K
+                    case 'c': e.preventDefault(); window.location.href = "https://thingscolddid.baby"; break; // Credits
                     case 'b': e.preventDefault(); toggleToolbar(); break;
                     case 'i': e.preventDefault(); toggleInvert('th-invert-toggle'); break;
                     case 'f': e.preventDefault(); openModal(fontModal); break;
@@ -938,5 +824,4 @@
         });
     </script>
 </body>
-
 </html>
