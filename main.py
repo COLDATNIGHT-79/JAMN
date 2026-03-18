@@ -411,6 +411,7 @@ class JAMNApp(QMainWindow):
         super().__init__()
         self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
         self.resize(1000, 700)
+        self.is_mac = sys.platform == "darwin"
 
         # State Variables
         self.current_theme = "default"
@@ -731,6 +732,18 @@ class JAMNApp(QMainWindow):
             "Meta+Shift+H": lambda: self.open_modal("shortcuts"), "Ctrl+Shift+H": lambda: self.open_modal("shortcuts"),
             "Esc": self.overlay.close_modal
         }
+
+        # Add Mac Alternatives for Alt shortcuts (using Meta which is Physical Ctrl on Mac)
+        if self.is_mac:
+            mac_binds = {
+                "Meta+1": lambda: self.format_block(24), "Meta+2": lambda: self.format_block(18), "Meta+3": lambda: self.format_block(14),
+                "Meta+U": lambda: self.format_list(QTextListFormat.Style.ListDisc), "Meta+O": lambda: self.format_list(QTextListFormat.Style.ListDecimal),
+                "Meta+H": self.apply_highlight, "Meta+K": lambda: self.open_modal("color"), "Meta+F": lambda: self.open_modal("font"),
+                "Meta+D": lambda: self.open_modal("theme"), "Meta+I": self.toggle_invert, "Meta+B": self.toggle_toolbar,
+                "Meta+C": lambda: QDesktopServices.openUrl(QUrl("https://thingscolddid.baby"))
+            }
+            binds.update(mac_binds)
+
         for key, func in binds.items():
             shortcut = QShortcut(QKeySequence(key), self)
             shortcut.activated.connect(func)
@@ -751,12 +764,13 @@ class JAMNApp(QMainWindow):
             layout.addWidget(title)
             
             grid = QGridLayout()
+            alt_label = "Alt/Ctrl" if self.is_mac else "Alt"
             shortcuts = [
-                ("Heading 1", "Alt + 1"), ("Heading 2", "Alt + 2"), ("Heading 3", "Alt + 3"),
-                ("Bullet Points", "Alt + U"), ("Numbered List", "Alt + O"), ("Highlight Text", "Alt + H"),
-                ("Text Color", "Alt + K"), ("Font Menu", "Alt + F"), ("Theme Menu", "Alt + D"),
-                ("Invert Theme", "Alt + I"), ("Toggle Bar", "Alt + B"), ("Credits", "Alt + C"),
-                ("Bold", "Ctrl + B"), ("Italics", "Ctrl + I"), ("Underline", "Ctrl + U"),
+                ("Heading 1", f"{alt_label} + 1"), ("Heading 2", f"{alt_label} + 2"), ("Heading 3", f"{alt_label} + 3"),
+                ("Bullet Points", f"{alt_label} + U"), ("Numbered List", f"{alt_label} + O"), ("Highlight Text", f"{alt_label} + H"),
+                ("Text Color", f"{alt_label} + K"), ("Font Menu", f"{alt_label} + F"), ("Theme Menu", f"{alt_label} + D"),
+                ("Invert Theme", f"{alt_label} + I"), ("Toggle Bar", f"{alt_label} + B"), ("Credits", f"{alt_label} + C"),
+                ("Bold", "Ctrl/Cmd + B"), ("Italics", "Ctrl/Cmd + I"), ("Underline", "Ctrl/Cmd + U"),
                 ("Show Shortcuts", "Win/Cmd + Shift + H"), ("Fullscreen", "F11")
             ]
             for i, (desc, keys) in enumerate(shortcuts):

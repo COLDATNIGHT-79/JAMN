@@ -614,21 +614,21 @@
     <div id="shortcuts-modal" class="modal">
         <h3>Shortcuts</h3>
         <ul class="shortcut-list">
-            <li><span>Heading 1</span> <span class="kbd">Alt + 1</span></li>
-            <li><span>Heading 2</span> <span class="kbd">Alt + 2</span></li>
-            <li><span>Heading 3</span> <span class="kbd">Alt + 3</span></li>
-            <li><span>Bullet Points</span> <span class="kbd">Alt + U</span></li>
-            <li><span>Numbered List</span> <span class="kbd">Alt + O</span></li>
-            <li><span>Highlight Text</span> <span class="kbd">Alt + H</span></li>
-            <li><span>Text Color</span> <span class="kbd">Alt + K</span></li>
-            <li><span>Font Menu</span> <span class="kbd">Alt + F</span></li>
-            <li><span>Theme Menu</span> <span class="kbd">Alt + D</span></li>
-            <li><span>Invert Theme</span> <span class="kbd">Alt + I</span></li>
-            <li><span>Toggle Bar</span> <span class="kbd">Alt + B</span></li>
-            <li><span>Credits</span> <span class="kbd">Alt + C</span></li>
-            <li><span>Bold</span> <span class="kbd">Ctrl + B</span></li>
-            <li><span>Italics</span> <span class="kbd">Ctrl + I</span></li>
-            <li><span>Underline</span> <span class="kbd">Ctrl + U</span></li>
+            <li><span>Heading 1</span> <span class="kbd" id="kbd-h1">Alt + 1</span></li>
+            <li><span>Heading 2</span> <span class="kbd" id="kbd-h2">Alt + 2</span></li>
+            <li><span>Heading 3</span> <span class="kbd" id="kbd-h3">Alt + 3</span></li>
+            <li><span>Bullet Points</span> <span class="kbd" id="kbd-list">Alt + U</span></li>
+            <li><span>Numbered List</span> <span class="kbd" id="kbd-num">Alt + O</span></li>
+            <li><span>Highlight Text</span> <span class="kbd" id="kbd-hl">Alt + H</span></li>
+            <li><span>Text Color</span> <span class="kbd" id="kbd-color">Alt + K</span></li>
+            <li><span>Font Menu</span> <span class="kbd" id="kbd-font">Alt + F</span></li>
+            <li><span>Theme Menu</span> <span class="kbd" id="kbd-theme">Alt + D</span></li>
+            <li><span>Invert Theme</span> <span class="kbd" id="kbd-inv">Alt + I</span></li>
+            <li><span>Toggle Bar</span> <span class="kbd" id="kbd-bar">Alt + B</span></li>
+            <li><span>Credits</span> <span class="kbd" id="kbd-credits">Alt + C</span></li>
+            <li><span>Bold</span> <span class="kbd">Ctrl/Cmd + B</span></li>
+            <li><span>Italics</span> <span class="kbd">Ctrl/Cmd + I</span></li>
+            <li><span>Underline</span> <span class="kbd">Ctrl/Cmd + U</span></li>
             <li><span>Show Shortcuts</span> <span class="kbd">Win/Cmd + Shift + H</span></li>
         </ul>
     </div>
@@ -718,9 +718,19 @@
         const toolbar = document.getElementById('toolbar');
 
         let activeModal = null;
-        let currentTextColor = '#e53935'; 
+        const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
 
-        window.onload = () => editor.focus();
+        window.onload = () => {
+            editor.focus();
+            if (isMac) {
+                // Update shortcut hints for Mac
+                const altKeys = ['h1', 'h2', 'h3', 'list', 'num', 'hl', 'color', 'font', 'theme', 'inv', 'bar', 'credits'];
+                altKeys.forEach(id => {
+                    const el = document.getElementById('kbd-' + id);
+                    if (el) el.innerText = el.innerText.replace('Alt', 'Alt/Ctrl');
+                });
+            }
+        };
 
         function toggleToolbar() {
             toolbar.classList.toggle('hidden');
@@ -859,7 +869,9 @@
                     case 'u': e.preventDefault(); formatText(e, 'underline'); return;
                 }
             }
-            if (e.altKey && !activeModal) {
+            const isAltPressed = e.altKey || (isMac && e.ctrlKey && !e.metaKey);
+
+            if (isAltPressed && !activeModal) {
                 switch(e.key.toLowerCase()) {
                     case '1': e.preventDefault(); document.execCommand('formatBlock', false, 'H1'); break;
                     case '2': e.preventDefault(); document.execCommand('formatBlock', false, 'H2'); break;
